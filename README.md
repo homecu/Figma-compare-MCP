@@ -21,7 +21,7 @@ Usa **Playwright** para navegar, **Sharp** para manipular imágenes, y **Pixelma
 1. Clona el repositorio:
 
 ```bash
-git clone https://github.com/tu-usuario/tu-repo.git
+git clone https://github.com/homecu/Figma-compare-MCP.git
 cd tu-repo
 ```
 
@@ -182,7 +182,7 @@ El archivo `LocalFigmaToken.ts` permite comparar visualmente **una página local
 
 ## ⚙️ Variables de entorno
 
-Necesitas definir en un archivo `.env`:
+Necesitas crear un archivo `.env` en el cual vas a poner:
 
 ```bash
 FIGMA_TOKEN=tu_token_de_figma_aqui
