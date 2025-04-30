@@ -14,7 +14,7 @@ const token = process.env.FIGMA_TOKEN || "";
 
 
 
-const url1 = "http://localhost:5173/rick-and-morty-app"; // URL de la página local (por ejemplo, localhost)
+const url1 = "http://localhost:5173/rick-and-morty-app"; 
 const url2 =
   "https://www.figma.com/design/rLqGVk83OKICyAhvW7gjFW/Front-end-test-project?node-id=873-4390&t=QPcUMZtkjTEpUiml-0"; // URL de la imagen de Figma
 
@@ -25,7 +25,7 @@ async function compareImages() {
 
   const screenshots: Record<string, Buffer> = {};
 
-  // 1. Descargar la imagen de Figma
+ 
   let figmaImageBuffer: Buffer;
 
   if (isFigmaUrl(url2)) {
@@ -35,12 +35,12 @@ async function compareImages() {
     return;
   }
 
-  // 2. Leer tamaño de la imagen
+  
   const figmaImageMetadata = await sharp(figmaImageBuffer).metadata();
   const viewportWidth = figmaImageMetadata.width || 1280;
   const viewportHeight = figmaImageMetadata.height || 720;
 
-  // 3. Tomar screenshot de url1 (localhost)
+ 
   const page = await context.newPage();
   await page.setViewportSize({
     width: viewportWidth,
@@ -57,14 +57,14 @@ async function compareImages() {
   screenshots["local"] = screenshotBuffer;
   screenshots["deployed"] = figmaImageBuffer;
 
-  // 4. Crear overlay
+  // Crear overlay
   const finalBuffer = await createOverlayImageWithSharp(
     screenshots["local"],
     screenshots["deployed"],
     0.3
   );
 
-  // 5. Comparar pixeles
+  // Comparar pixeles
   const img1 = PNG.sync.read(screenshots["local"]);
   const img2 = PNG.sync.read(screenshots["deployed"]);
 
@@ -77,7 +77,6 @@ async function compareImages() {
 
   const diffBuffer = PNG.sync.write(diff);
 
-  // 6. Guardar resultados en disco
   const tempDir = os.tmpdir();
   const tempComparePath = path.join(tempDir, `Local-token-compare.png`);
   const tempDiffPath = path.join(tempDir, `Local-token-diff.png`);

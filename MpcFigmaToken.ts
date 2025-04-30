@@ -32,7 +32,7 @@ server.tool(
 
     const screenshots: Record<string, Buffer> = {};
 
-    // 1. Descargar la imagen de Figma o normal
+   
     let figmaImageBuffer: Buffer;
 
     if (isFigmaUrl(url2)) {
@@ -48,12 +48,11 @@ server.tool(
       };
     }
 
-    // 2. Leer tamaño de la imagen
     const figmaImageMetadata = await sharp(figmaImageBuffer).metadata();
     const viewportWidth = figmaImageMetadata.width || 1280;
     const viewportHeight = figmaImageMetadata.height || 720;
 
-    // 3. Tomar screenshot de url1 (localhost)
+   
     const page = await context.newPage();
     await page.setViewportSize({
       width: viewportWidth,
@@ -67,14 +66,14 @@ server.tool(
     screenshots["local"] = screenshotBuffer;
     screenshots["deployed"] = figmaImageBuffer;
 
-    // 4. Crear overlay
+    // Crear overlay
     const finalBuffer = await createOverlayImageWithSharp(
       screenshots["local"],
       screenshots["deployed"],
       0.3
     );
 
-    // 5. Comparar pixeles
+    // Comparar pixeles
     const img1 = PNG.sync.read(screenshots["local"]);
     const img2 = PNG.sync.read(screenshots["deployed"]);
 
@@ -87,7 +86,7 @@ server.tool(
 
     const diffBuffer = PNG.sync.write(diff);
 
-    // 6. Guardar resultados en disco
+   
     const tempDir = os.tmpdir();
     const tempComparePath = path.join(tempDir, `mcp-token-compare.png`);
     const tempDiffPath = path.join(tempDir, `mcp-token-diff.png`);
@@ -177,8 +176,6 @@ async function downloadFigmaImage(figmaUrl: string): Promise<Buffer> {
   return buffer;
 }
 
-// ----------------------------------------------
 
-// Conexión MCP
 const transport = new StdioServerTransport();
 await server.connect(transport);

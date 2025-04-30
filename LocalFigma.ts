@@ -26,7 +26,7 @@ async function compareImages() {
   const viewportWidth = width || 1280;
   const viewportHeight = height || 720;
 
-  // Tomar capturas de pantalla
+  
   for (const { name, url } of urls) {
     const page = await context.newPage();
     await page.setViewportSize({
@@ -34,7 +34,7 @@ async function compareImages() {
       height: viewportHeight,
     });
     await page.goto(url, { waitUntil: "networkidle" });
-    await page.waitForTimeout(2000); // Esperar para asegurar que la página cargue
+    await page.waitForTimeout(2000); 
     const buffer = await page.screenshot({ fullPage: false });
     screenshots[name] = buffer;
     await page.close();
@@ -47,7 +47,7 @@ async function compareImages() {
     0.3
   );
 
-  // Comparar imágenes pixel a pixel
+  
   const img1 = PNG.sync.read(screenshots["local"]);
   const img2 = PNG.sync.read(screenshots["deployed"]);
 
@@ -71,7 +71,7 @@ async function compareImages() {
   
   await browser.close();
 
-  // Retornar las URLs de los resultados
+  
   return {
     tempComparePath,
     tempDiffPath,
