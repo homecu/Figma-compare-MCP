@@ -151,7 +151,7 @@ imagen `mcp-token-diff.png`
 
 ## 🧑‍💻 Autor
 
-- **Tu Nombre** - [Tu GitHub]()
+- **Johan sebastian Villamarin** - [https://github.com/johanBlossom]()
 
 
 
